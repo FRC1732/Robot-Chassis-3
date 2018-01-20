@@ -7,9 +7,10 @@
 
 package org.usfirst.frc.team1732.robot;
 
+import org.usfirst.frc.team1732.robot.input.Joysticks;
+import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1732.robot.subsystems.Grabber;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -21,9 +22,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Joysticks joysticks = new Joysticks();
 
 	public Grabber grabber;
-	public Joystick controller;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -32,7 +34,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		grabber = new Grabber();
-		controller = new Joystick(4);
 	}
 
 	/**
@@ -63,8 +64,7 @@ public class Robot extends TimedRobot {
 	 * the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {
-	}
+	public void autonomousInit() {}
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -75,8 +75,7 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {
-	}
+	public void teleopInit() {}
 
 	/**
 	 * This function is called periodically during operator control.
@@ -84,17 +83,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		if (controller.getRawButton(5)) {
-			grabber.grab();
-		} else {
-			grabber.release();
-		}
+		// if (controller.getRawButton(5)) {
+		// grabber.grab();
+		// } else {
+		// grabber.release();
+		// }
 	}
 
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {
-	}
+	public void testPeriodic() {}
 }
