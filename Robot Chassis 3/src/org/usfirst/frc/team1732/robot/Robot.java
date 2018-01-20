@@ -8,6 +8,8 @@
 package org.usfirst.frc.team1732.robot;
 
 import org.usfirst.frc.team1732.robot.input.Joysticks;
+import org.usfirst.frc.team1732.robot.sensors.Limelight;
+import org.usfirst.frc.team1732.robot.sensors.Limelight.LEDMode;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1732.robot.subsystems.Grabber;
 
@@ -25,6 +27,7 @@ public class Robot extends TimedRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Joysticks joysticks = new Joysticks();
 
+	public Limelight limelight;
 	public Grabber grabber;
 
 	/**
@@ -34,6 +37,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		grabber = new Grabber();
+		limelight = new Limelight();
+		limelight.setLEDMode(LEDMode.OFF);
 	}
 
 	/**
