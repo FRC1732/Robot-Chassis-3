@@ -1,13 +1,17 @@
 package org.usfirst.frc.team1732.robot.input;
 
+import org.usfirst.frc.team1732.robot.commands.ToggleLED;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class Joysticks {
-
 	public final Joystick controller;
 
 	public Joysticks() {
 		controller = new Joystick(4);
+
+		new JoystickButton(controller, 4).whenPressed(new ToggleLED());;
 	}
 
 	public double getLeftY() {
