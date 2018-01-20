@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1732.robot.input;
 
+import org.usfirst.frc.team1732.robot.commands.AimAtCube;
 import org.usfirst.frc.team1732.robot.commands.ToggleLED;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -11,7 +12,8 @@ public class Joysticks {
 	public Joysticks() {
 		controller = new Joystick(4);
 
-		new JoystickButton(controller, 4).whenPressed(new ToggleLED());;
+		new JoystickButton(controller, 4).whenPressed(new ToggleLED());
+		new JoystickButton(controller, 1).whileHeld(new AimAtCube());
 	}
 
 	public double getLeftY() {

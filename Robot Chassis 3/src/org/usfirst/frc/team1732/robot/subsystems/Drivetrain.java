@@ -42,6 +42,10 @@ public class Drivetrain extends Subsystem {
 	public void setRightMotors(double val) {
 		rightMaster.set(ControlMode.PercentOutput, 0.3 * constrain(val, -1, 1));
 	}
+	public void setAllStop() {
+		setLeftMotors(0);
+		setRightMotors(0);
+	}
 	public double constrain(double n, double min, double max) {
 		return (n < min ? min : (n > max ? max : n));
 	}
