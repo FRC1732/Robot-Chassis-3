@@ -8,13 +8,10 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
  *
  */
 public class ToggleLED extends InstantCommand {
-
 	public ToggleLED() {
 		super();
 	}
-
 	protected void initialize() {
 		Robot.limelight.toggleLED();
 	}
-
 }

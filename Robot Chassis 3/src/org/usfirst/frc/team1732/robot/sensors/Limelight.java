@@ -1,16 +1,30 @@
 package org.usfirst.frc.team1732.robot.sensors;
 
+import java.util.function.Consumer;
+
+import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.EntryNotification;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
 	private static final String LED_MODE = "ledMode";
+	private static final int BUFFER_SIZE = 10;
 
 	private final NetworkTable table;
 
+	private double horizontalOffsetAverage;
+
 	public Limelight() {
 		table = NetworkTableInstance.getDefault().getTable("limelight");
+		table.getEntry("tx").addListener(new Consumer<EntryNotification>() {
+			public void accept(EntryNotification t) {
+				// calculate rolling average
+				horizontalOffsetAverage -= horizontalOffsetAverage / BUFFER_SIZE;
+				horizontalOffsetAverage += t.value.getDouble() / BUFFER_SIZE;
+			}
+		}, EntryListenerFlags.kUpdate);
 	}
 	// ----- SETTERS -----
 	public void setLEDMode(LEDMode mode) {
@@ -18,8 +32,11 @@ public class Limelight {
 	}
 	// ----- GETTERS -----
 	// returns the horizonatal offset of the target (between -27 and 27 degrees)
-	public double getHorizontalOffset() {
+	public double getRawHorizontalOffset() {
 		return table.getEntry("tx").getNumber(0).doubleValue();
+	}
+	public double getHorizontalOffset() {
+		return horizontalOffsetAverage;
 	}
 	// returns the vertical offset of the target (between -20.5 and 20.5 degrees)
 	public double getVerticalOffset() {

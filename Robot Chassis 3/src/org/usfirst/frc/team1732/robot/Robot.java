@@ -11,7 +11,6 @@ import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
 import org.usfirst.frc.team1732.robot.sensors.Limelight.LEDMode;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team1732.robot.subsystems.Grabber;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -24,10 +23,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+	// Subsystems
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Joysticks joysticks = new Joysticks();
+
+	// Sensors
 	public static final Limelight limelight = new Limelight();;
-	public Grabber grabber;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -35,7 +36,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		grabber = new Grabber();
 		limelight.setLEDMode(LEDMode.OFF);
 	}
 
@@ -45,9 +45,7 @@ public class Robot extends TimedRobot {
 	 * robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
-
-	}
+	public void disabledInit() {}
 
 	@Override
 	public void disabledPeriodic() {
@@ -86,11 +84,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		// if (controller.getRawButton(5)) {
-		// grabber.grab();
-		// } else {
-		// grabber.release();
-		// }
 	}
 
 	/**
