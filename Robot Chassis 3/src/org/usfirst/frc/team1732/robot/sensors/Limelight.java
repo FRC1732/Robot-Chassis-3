@@ -35,6 +35,9 @@ public class Limelight {
 	public double getRawHorizontalOffset() {
 		return table.getEntry("tx").getNumber(0).doubleValue();
 	}
+	public double getNormalizedHorizontalOffset() {
+		return getRawHorizontalOffset() / 27;
+	}
 	public double getHorizontalOffset() {
 		return horizontalOffsetAverage;
 	}
@@ -49,6 +52,9 @@ public class Limelight {
 	// returns percent of screen area target takes up (between 0 and 100)
 	public double getTargetArea() {
 		return table.getEntry("ta").getNumber(0).doubleValue();
+	}
+	public double getNormalizedTargetArea() {
+		return getTargetArea() / 100;
 	}
 	// rotation of target (between -90 and 0 degrees)
 	public double getTargetSkew() {
