@@ -37,10 +37,10 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new RyanDrive());
 	}
 	public void setLeftMotors(double val) {
-		leftMaster.set(ControlMode.PercentOutput, 0.3 * constrain(-val, -1, 1));
+		leftMaster.set(ControlMode.PercentOutput, 0.6 * constrain(-val, -1, 1));
 	}
 	public void setRightMotors(double val) {
-		rightMaster.set(ControlMode.PercentOutput, 0.3 * constrain(val, -1, 1));
+		rightMaster.set(ControlMode.PercentOutput, 0.6 * constrain(val, -1, 1));
 	}
 	public void setAllStop() {
 		setLeftMotors(0);

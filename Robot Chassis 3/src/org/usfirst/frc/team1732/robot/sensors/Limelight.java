@@ -56,6 +56,25 @@ public class Limelight {
 	public double getNormalizedTargetArea() {
 		return getTargetArea() / 100;
 	}
+	// Estimates distance in inches using target area
+	public double getDistanceToTarget() {
+		return hasValidTargets() ? 123.31 * Math.pow(getTargetArea(), -0.529) : 0;
+	}
+	// GATHERED DATA
+	/*
+	 * AREA DIST
+	 * 1.0 118
+	 * 1.2 108
+	 * 1.5 96
+	 * 2.3 84
+	 * 3.0 72
+	 * 4.3 60
+	 * 5.8 48
+	 * 10.2 36
+	 * 23.2 24
+	 * 88.1 12
+	 * 100.0 10
+	 */
 	// rotation of target (between -90 and 0 degrees)
 	public double getTargetSkew() {
 		return table.getEntry("ts").getNumber(0).doubleValue();

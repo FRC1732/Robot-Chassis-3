@@ -19,7 +19,7 @@ public class RyanDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double drive = joysticks.getLeftY(), turn = joysticks.getRightX();
+		double drive = joysticks.getLeftY(), turn = joysticks.getRightX() * 0.5;
 		double left = drive - turn, right = drive + turn;
 		drivetrain.setLeftMotors(left);
 		drivetrain.setRightMotors(right);

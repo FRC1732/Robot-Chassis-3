@@ -13,7 +13,7 @@ public class Joysticks {
 		controller = new Joystick(4);
 
 		new JoystickButton(controller, 4).whenPressed(new ToggleLED());
-		new JoystickButton(controller, 1).whileHeld(new AimAtCube());
+		new JoystickButton(controller, 1).whenPressed(new AimAtCube());
 	}
 
 	public double getLeftY() {
