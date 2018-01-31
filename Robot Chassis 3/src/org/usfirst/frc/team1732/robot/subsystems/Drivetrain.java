@@ -15,12 +15,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
-	private final TalonSRX leftMaster = new TalonSRX(14);
-	private final TalonSRX left1 = new TalonSRX(11);
-	private final TalonSRX left2 = new TalonSRX(13);
-	private final TalonSRX rightMaster = new TalonSRX(22);
-	private final TalonSRX right1 = new TalonSRX(23);
-	private final TalonSRX right2 = new TalonSRX(21);
+	private final TalonSRX leftMaster = new TalonSRX(14), left1 = new TalonSRX(11), left2 = new TalonSRX(13);
+	private final TalonSRX rightMaster = new TalonSRX(22), right1 = new TalonSRX(23), right2 = new TalonSRX(21);
 
 	public Drivetrain() {
 		initTalons();
@@ -37,16 +33,38 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new RyanDrive());
 	}
 	public void setLeftMotors(double val) {
-		leftMaster.set(ControlMode.PercentOutput, 0.6 * constrain(-val, -1, 1));
+		setLeftMotorsRaw(0.6 * constrain(val, -1, 1));
+	}
+	public void setLeftMotorsRaw(double val) {
+		leftMaster.set(ControlMode.PercentOutput, -val);
 	}
 	public void setRightMotors(double val) {
-		rightMaster.set(ControlMode.PercentOutput, 0.6 * constrain(val, -1, 1));
+		setRightMotorsRaw(0.6 * constrain(val, -1, 1));
+	}
+	public void setRightMotorsRaw(double val) {
+		rightMaster.set(ControlMode.PercentOutput, val);
+	}
+	public void setMotors(double left, double right) {
+		setLeftMotors(left);
+		setRightMotors(right);
+	}
+	public void setMotorsRaw(double left, double right) {
+		setLeftMotorsRaw(left);
+		setRightMotorsRaw(right);
+	}
+	public void setMotors(double val) {
+		setMotors(val, val);
 	}
 	public void setAllStop() {
-		setLeftMotors(0);
-		setRightMotors(0);
+		setMotors(0);
 	}
 	public double constrain(double n, double min, double max) {
 		return (n < min ? min : (n > max ? max : n));
+	}
+	public TalonSRX getLeftTalon() {
+		return leftMaster;
+	}
+	public TalonSRX getRightTalon() {
+		return rightMaster;
 	}
 }

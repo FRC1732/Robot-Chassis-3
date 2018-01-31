@@ -9,8 +9,8 @@ package org.usfirst.frc.team1732.robot;
 
 import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
-import org.usfirst.frc.team1732.robot.sensors.Limelight.LEDMode;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team1732.robot.util.SRXVoltageRecorder;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -28,16 +28,18 @@ public class Robot extends TimedRobot {
 	public static final Joysticks joysticks = new Joysticks();
 
 	// Sensors
-	public static final Limelight limelight = new Limelight();;
+	public static final Limelight limelight = new Limelight();
+
+	// Voltage recording (Should move)
+	public static final SRXVoltageRecorder leftRecorder = new SRXVoltageRecorder(drivetrain.getLeftTalon());
+	public static final SRXVoltageRecorder rightRecorder = new SRXVoltageRecorder(drivetrain.getRightTalon());
 
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
-		limelight.setLEDMode(LEDMode.OFF);
-	}
+	public void robotInit() {}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode. You
@@ -83,6 +85,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		leftRecorder.update();
+		rightRecorder.update();
 		Scheduler.getInstance().run();
 	}
 

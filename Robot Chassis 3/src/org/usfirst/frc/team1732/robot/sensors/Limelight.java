@@ -35,15 +35,26 @@ public class Limelight {
 	public double getRawHorizontalOffset() {
 		return table.getEntry("tx").getNumber(0).doubleValue();
 	}
+	public double getRawHorizontalOffset(double defaultValue) {
+		return hasValidTargets() ? getRawHorizontalOffset() : defaultValue;
+	}
+	// returns horizontal offset between 0 and 1
 	public double getNormalizedHorizontalOffset() {
 		return getRawHorizontalOffset() / 27;
 	}
+	public double getNormalizedHorizontalOffset(double defaultValue) {
+		return hasValidTargets() ? getNormalizedHorizontalOffset() : defaultValue;
+	}
+	// returns rolling-averaged horizontal offset
 	public double getHorizontalOffset() {
 		return horizontalOffsetAverage;
 	}
 	// returns the vertical offset of the target (between -20.5 and 20.5 degrees)
 	public double getVerticalOffset() {
 		return table.getEntry("ty").getNumber(0).doubleValue();
+	}
+	public double getVerticalOffset(double defaultValue) {
+		return hasValidTargets() ? getVerticalOffset() : defaultValue;
 	}
 	// returns true if it is tracking a target
 	public boolean hasValidTargets() {
@@ -53,27 +64,31 @@ public class Limelight {
 	public double getTargetArea() {
 		return table.getEntry("ta").getNumber(0).doubleValue();
 	}
+	public double getTargetArea(double defaultValue) {
+		return hasValidTargets() ? getTargetArea() : defaultValue;
+	}
+	// returns target area between 0 and 1
 	public double getNormalizedTargetArea() {
 		return getTargetArea() / 100;
 	}
 	// Estimates distance in inches using target area
-	public double getDistanceToTarget() {
-		return hasValidTargets() ? 123.31 * Math.pow(getTargetArea(), -0.529) : 0;
+	public double getDistanceToTarget(double defaultValue) {
+		return hasValidTargets() ? 123.31 * Math.pow(getTargetArea(), -0.529) : defaultValue;
 	}
 	// GATHERED DATA
 	/*
-	 * AREA DIST
-	 * 1.0 118
-	 * 1.2 108
-	 * 1.5 96
-	 * 2.3 84
-	 * 3.0 72
-	 * 4.3 60
-	 * 5.8 48
-	 * 10.2 36
-	 * 23.2 24
-	 * 88.1 12
-	 * 100.0 10
+	 * AREA____DIST
+	 * 1.0______118
+	 * 1.2______108
+	 * 1.5_______96
+	 * 2.3_______84
+	 * 3.0_______72
+	 * 4.3_______60
+	 * 5.8_______48
+	 * 10.2______36
+	 * 23.2______24
+	 * 88.1______12
+	 * 100.0_____10
 	 */
 	// rotation of target (between -90 and 0 degrees)
 	public double getTargetSkew() {
