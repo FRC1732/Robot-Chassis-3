@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1732.robot;
 
+import org.usfirst.frc.team1732.robot.commands.DriveABitForElectrical;
 import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
@@ -47,7 +48,8 @@ public class Robot extends TimedRobot {
 	 * robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {}
+	public void disabledInit() {
+	}
 
 	@Override
 	public void disabledPeriodic() {
@@ -67,7 +69,9 @@ public class Robot extends TimedRobot {
 	 * the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {}
+	public void autonomousInit() {
+		new DriveABitForElectrical().start();
+	}
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -78,7 +82,8 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {}
+	public void teleopInit() {
+	}
 
 	/**
 	 * This function is called periodically during operator control.
@@ -94,5 +99,6 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {}
+	public void testPeriodic() {
+	}
 }
