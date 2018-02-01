@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1732.robot.subsystems;
 
 import org.usfirst.frc.team1732.robot.commands.drive.RyanDrive;
+import org.usfirst.frc.team1732.robot.math.Feedforward;
 import org.usfirst.frc.team1732.robot.sensors.encoders.EncoderBase;
 import org.usfirst.frc.team1732.robot.sensors.encoders.TalonEncoder;
 
@@ -21,6 +22,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drivetrain extends Subsystem {
 	private final TalonSRX leftMaster = new TalonSRX(14), left1 = new TalonSRX(11), left2 = new TalonSRX(13);
 	private final TalonSRX rightMaster = new TalonSRX(22), right1 = new TalonSRX(23), right2 = new TalonSRX(21);
+
+	public final Feedforward leftFeedforward = new Feedforward(0, 0, 0);
+	public final Feedforward rightFeedforward = new Feedforward(0, 0, 0);
 
 	public final EncoderBase leftEncoder;
 	public final EncoderBase rightEncoder;
