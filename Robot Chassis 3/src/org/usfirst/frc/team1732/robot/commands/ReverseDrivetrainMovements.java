@@ -19,7 +19,6 @@ public class ReverseDrivetrainMovements extends Command {
 	protected void initialize() {
 		leftRecorder.stopRecording();
 		rightRecorder.stopRecording();
-		System.out.println("Starting reversing " + leftRecorder.isFinished());
 	}
 
 	// Called repeatedly when this Command is scheduled to run
