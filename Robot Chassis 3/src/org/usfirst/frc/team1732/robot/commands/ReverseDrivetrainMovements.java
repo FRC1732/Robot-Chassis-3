@@ -19,6 +19,7 @@ public class ReverseDrivetrainMovements extends Command {
 	protected void initialize() {
 		leftRecorder.stopRecording();
 		rightRecorder.stopRecording();
+		System.out.println("Starting reversing " + leftRecorder.isFinished());
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -28,7 +29,7 @@ public class ReverseDrivetrainMovements extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return leftRecorder.isFinished() && rightRecorder.isFinished();
+		return leftRecorder.isFinished() || rightRecorder.isFinished();
 	}
 
 	// Called once after isFinished returns true

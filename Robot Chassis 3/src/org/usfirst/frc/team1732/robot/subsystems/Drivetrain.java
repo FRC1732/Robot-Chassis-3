@@ -7,9 +7,10 @@
 
 package org.usfirst.frc.team1732.robot.subsystems;
 
-import org.usfirst.frc.team1732.robot.commands.RyanDrive;
+import org.usfirst.frc.team1732.robot.commands.drive.RyanDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,14 +21,18 @@ public class Drivetrain extends Subsystem {
 
 	public Drivetrain() {
 		initTalons();
+		initEncoders();
 	}
-	public void initTalons() {
+	private void initTalons() {
 		leftMaster.setInverted(true);
 		left1.follow(leftMaster);
 		left2.follow(leftMaster);
 		rightMaster.setInverted(true);
 		right1.follow(rightMaster);
 		right2.follow(rightMaster);
+	}
+	private void initEncoders() {
+
 	}
 	public void initDefaultCommand() {
 		setDefaultCommand(new RyanDrive());
@@ -66,5 +71,14 @@ public class Drivetrain extends Subsystem {
 	}
 	public TalonSRX getRightTalon() {
 		return rightMaster;
+	}
+	public void setBrakeMode(boolean enabled) {
+		NeutralMode mode = enabled ? NeutralMode.Brake : NeutralMode.Coast;
+		leftMaster.setNeutralMode(mode);
+		left1.setNeutralMode(mode);
+		left2.setNeutralMode(mode);
+		rightMaster.setNeutralMode(mode);
+		right1.setNeutralMode(mode);
+		right2.setNeutralMode(mode);
 	}
 }

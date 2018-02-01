@@ -31,6 +31,17 @@ public class Joysticks {
 			}
 		});
 		new JoystickButton(controller, 9).whenPressed(new ReverseDrivetrainMovements());
+
+		new JoystickButton(controller, 2).whenPressed(new InstantCommand() {
+			protected void initialize() {
+				Robot.drivetrain.setBrakeMode(true);
+			}
+		});
+		new JoystickButton(controller, 3).whenPressed(new InstantCommand() {
+			protected void initialize() {
+				Robot.drivetrain.setBrakeMode(false);
+			}
+		});
 	}
 
 	public double getLeftY() {

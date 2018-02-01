@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team1732.robot.commands;
+package org.usfirst.frc.team1732.robot.commands.drive;
 
 import static org.usfirst.frc.team1732.robot.Robot.drivetrain;
 import static org.usfirst.frc.team1732.robot.Robot.joysticks;

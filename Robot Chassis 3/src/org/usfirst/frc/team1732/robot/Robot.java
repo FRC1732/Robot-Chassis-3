@@ -35,6 +35,10 @@ public class Robot extends TimedRobot {
 	public static final SRXVoltageRecorder leftRecorder = new SRXVoltageRecorder(drivetrain.getLeftTalon());
 	public static final SRXVoltageRecorder rightRecorder = new SRXVoltageRecorder(drivetrain.getRightTalon());
 
+	// config
+	public static final int PERIOD_MS = 10;
+	public static final int CONFIG_TIMEOUT = 10;
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -48,8 +52,7 @@ public class Robot extends TimedRobot {
 	 * robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
-	}
+	public void disabledInit() {}
 
 	@Override
 	public void disabledPeriodic() {
@@ -82,16 +85,13 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {
-	}
+	public void teleopInit() {}
 
 	/**
 	 * This function is called periodically during operator control.
 	 */
 	@Override
 	public void teleopPeriodic() {
-		leftRecorder.update();
-		rightRecorder.update();
 		Scheduler.getInstance().run();
 	}
 
@@ -99,6 +99,5 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {
-	}
+	public void testPeriodic() {}
 }
