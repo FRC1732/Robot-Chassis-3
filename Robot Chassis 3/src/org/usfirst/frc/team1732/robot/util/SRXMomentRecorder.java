@@ -7,13 +7,13 @@ import org.usfirst.frc.team1732.robot.sensors.encoders.EncoderReader;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class SRXVoltageRecorder {
+public class SRXMomentRecorder {
 	private TalonSRX talon;
 	private EncoderReader encoder;
 	private Stack<Moment> voltages;
 	private boolean recording = false;
 
-	public SRXVoltageRecorder(TalonSRX device, EncoderReader reader) {
+	public SRXMomentRecorder(TalonSRX device, EncoderReader reader) {
 		talon = device;
 		encoder = reader;
 		voltages = new Stack<>();

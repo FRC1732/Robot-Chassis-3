@@ -12,7 +12,7 @@ import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
 import org.usfirst.frc.team1732.robot.sensors.encoders.EncoderReader;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team1732.robot.util.SRXVoltageRecorder;
+import org.usfirst.frc.team1732.robot.util.SRXMomentRecorder;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -33,9 +33,9 @@ public class Robot extends TimedRobot {
 	public static final Limelight limelight = new Limelight();
 
 	// Voltage recording (Should move)
-	public static final SRXVoltageRecorder leftRecorder = new SRXVoltageRecorder(drivetrain.getLeftTalon(),
+	public static final SRXMomentRecorder leftRecorder = new SRXMomentRecorder(drivetrain.getLeftTalon(),
 			new EncoderReader(drivetrain.leftEncoder));
-	public static final SRXVoltageRecorder rightRecorder = new SRXVoltageRecorder(drivetrain.getRightTalon(),
+	public static final SRXMomentRecorder rightRecorder = new SRXMomentRecorder(drivetrain.getRightTalon(),
 			new EncoderReader(drivetrain.rightEncoder));
 
 	// config
