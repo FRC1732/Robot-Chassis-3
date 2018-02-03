@@ -10,6 +10,7 @@ package org.usfirst.frc.team1732.robot.subsystems;
 import org.usfirst.frc.team1732.robot.commands.drive.RyanDrive;
 import org.usfirst.frc.team1732.robot.math.Feedforward;
 import org.usfirst.frc.team1732.robot.sensors.encoders.EncoderBase;
+import org.usfirst.frc.team1732.robot.sensors.encoders.EncoderReader;
 import org.usfirst.frc.team1732.robot.sensors.encoders.TalonEncoder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -28,8 +29,10 @@ public class Drivetrain extends Subsystem {
 
 	public final EncoderBase leftEncoder;
 	public final EncoderBase rightEncoder;
+	public final EncoderReader leftReader;
+	public final EncoderReader rightReader;
 
-	public static final double ENCODER_INCHES_PER_PULSE = 0;
+	public static final double ENCODER_INCHES_PER_PULSE = 45.0 / 3401;
 
 	public Drivetrain() {
 		initTalons();
@@ -38,6 +41,8 @@ public class Drivetrain extends Subsystem {
 		leftEncoder.setDistancePerPulse(ENCODER_INCHES_PER_PULSE);
 		rightEncoder = new TalonEncoder(rightMaster);
 		rightEncoder.setDistancePerPulse(ENCODER_INCHES_PER_PULSE);
+		leftReader = leftEncoder.makeReader();
+		rightReader = rightEncoder.makeReader();
 	}
 
 	private void initTalons() {
@@ -55,8 +60,8 @@ public class Drivetrain extends Subsystem {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("Left Pulses", leftEncoder.getPulses());
-		SmartDashboard.putNumber("Right Pulses", rightEncoder.getPulses());
+		SmartDashboard.putNumber("Left Pulses", leftReader.getPulses());
+		SmartDashboard.putNumber("Right Pulses", rightReader.getPulses());
 	}
 
 	@Override

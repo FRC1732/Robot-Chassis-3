@@ -8,13 +8,16 @@ public class EncoderReader {
 
 	private final EncoderBase e;
 	private double position = 0;
+	private double pulses;
 
 	public EncoderReader(EncoderBase e) {
 		this.e = e;
+		zero();
 	}
 
 	public void zero() {
 		position = e.getPosition();
+		pulses = e.getPulses();
 	}
 
 	public double getPosition() {
@@ -23,6 +26,10 @@ public class EncoderReader {
 
 	public double getRate() {
 		return e.getRate();
+	}
+
+	public double getPulses() {
+		return e.getPulses() - pulses;
 	}
 
 }
