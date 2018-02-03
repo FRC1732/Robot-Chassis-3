@@ -10,25 +10,25 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class SRXMomentRecorder {
 	private TalonSRX talon;
 	private EncoderReader encoder;
-	private Stack<Moment> voltages;
+	private Stack<Moment> moments;
 	private boolean recording = false;
 
 	public SRXMomentRecorder(TalonSRX device, EncoderReader reader) {
 		talon = device;
 		encoder = reader;
-		voltages = new Stack<>();
+		moments = new Stack<>();
 	}
 	public void startRecording() {
-		voltages.clear();
+		moments.clear();
 		recording = true;
 		new Thread() {
 			public void run() {
 				while (recording && !Thread.interrupted()) {
-					voltages.push(new Moment(talon.getMotorOutputPercent(), encoder.getPosition()));
+					moments.push(new Moment(talon.getMotorOutputPercent(), encoder.getPosition()));
 					try {
 						// no idea what this does, but it has to be there to make the wait work
 						synchronized (this) {
-							this.wait((long) (Robot.DEFAULT_PERIOD * 1000));
+							this.wait((long) Robot.PERIOD_MS);
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -41,10 +41,15 @@ public class SRXMomentRecorder {
 		recording = false;
 	}
 	public double getLastVoltage() {
-		return isFinished() ? 0 : voltages.pop().voltage;
+		if (isFinished())
+			return 0;
+		else {
+			Moment pres = moments.pop();
+			return pres.voltage + 0.1 * (encoder.getPosition() - pres.encoderPos);
+		}
 	}
 	public boolean isFinished() {
-		return voltages.empty();
+		return moments.empty();
 	}
 
 	private class Moment {

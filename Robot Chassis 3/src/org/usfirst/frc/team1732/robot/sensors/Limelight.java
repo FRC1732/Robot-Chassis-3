@@ -9,7 +9,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
-	private static final String LED_MODE = "ledMode";
+	private static final String LED_MODE = "ledMode", CAM_MODE = "camMode";
 	private static final int BUFFER_SIZE = 10;
 
 	private final NetworkTable table;
@@ -29,6 +29,9 @@ public class Limelight {
 	// ----- SETTERS -----
 	public void setLEDMode(LEDMode mode) {
 		table.getEntry(LED_MODE).setNumber(mode.getVal());
+	}
+	public void setCamMode(CamMode mode) {
+		table.getEntry(CAM_MODE).setNumber(mode.getVal());
 	}
 	// ----- GETTERS -----
 	// returns the horizonatal offset of the target (between -27 and 27 degrees)
@@ -104,12 +107,27 @@ public class Limelight {
 		NetworkTableEntry lights = table.getEntry(LED_MODE);
 		lights.setNumber(lights.getNumber(1).intValue() == 0 ? 1 : 0);
 	}
+	public void toggleCamMode() {
+		NetworkTableEntry cam = table.getEntry(CAM_MODE);
+		cam.setNumber(cam.getNumber(1).intValue() == 0 ? 1 : 0);
+	}
 
 	public static enum LEDMode {
 		ON(0), OFF(1), BLINK(2);
 		private int val;
 
 		private LEDMode(int n) {
+			val = n;
+		}
+		public int getVal() {
+			return val;
+		}
+	}
+	public static enum CamMode {
+		VISION_PROCESSOR(0), DRIVER_FEEDBACK(1);
+		private int val;
+
+		private CamMode(int n) {
 			val = n;
 		}
 		public int getVal() {

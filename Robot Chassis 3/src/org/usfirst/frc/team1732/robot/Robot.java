@@ -47,7 +47,9 @@ public class Robot extends TimedRobot {
 	 * for any initialization code.
 	 */
 	@Override
-	public void robotInit() {}
+	public void robotInit() {
+		setPeriod(PERIOD_MS / 1000.0);
+	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode. You
