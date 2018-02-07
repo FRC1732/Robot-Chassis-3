@@ -23,7 +23,9 @@ public class ReverseDrivetrainMovements extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		drivetrain.setMotorsRaw(leftRecorder.getLastVoltage(), -rightRecorder.getLastVoltage());
+		double left = leftRecorder.getLastVoltage(), right = -rightRecorder.getLastVoltage();
+		// System.out.printf("Left: %.5f, Right: %.5f%n", left, right);
+		drivetrain.setMotorsRaw(left, right);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

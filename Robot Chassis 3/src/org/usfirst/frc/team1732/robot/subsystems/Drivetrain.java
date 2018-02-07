@@ -62,6 +62,8 @@ public class Drivetrain extends Subsystem {
 	public void periodic() {
 		SmartDashboard.putNumber("Left Pulses", leftReader.getPulses());
 		SmartDashboard.putNumber("Right Pulses", rightReader.getPulses());
+		SmartDashboard.putNumber("Left Distance", leftReader.getPosition());
+		SmartDashboard.putNumber("Right Distance", rightReader.getPosition());
 	}
 
 	@Override

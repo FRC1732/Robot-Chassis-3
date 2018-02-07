@@ -10,7 +10,6 @@ package org.usfirst.frc.team1732.robot;
 import org.usfirst.frc.team1732.robot.commands.DriveABitForElectrical;
 import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
-import org.usfirst.frc.team1732.robot.sensors.encoders.EncoderReader;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1732.robot.util.SRXMomentRecorder;
 
@@ -34,9 +33,9 @@ public class Robot extends TimedRobot {
 
 	// Voltage recording (Should move)
 	public static final SRXMomentRecorder leftRecorder = new SRXMomentRecorder(drivetrain.getLeftTalon(),
-			new EncoderReader(drivetrain.leftEncoder));
+			drivetrain.leftEncoder.makeReader());
 	public static final SRXMomentRecorder rightRecorder = new SRXMomentRecorder(drivetrain.getRightTalon(),
-			new EncoderReader(drivetrain.rightEncoder));
+			drivetrain.rightEncoder.makeReader());
 
 	// config
 	public static final int PERIOD_MS = 10;
