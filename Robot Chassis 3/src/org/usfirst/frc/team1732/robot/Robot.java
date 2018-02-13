@@ -48,6 +48,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		setPeriod(PERIOD_MS / 1000.0);
+		// CameraServer.getInstance()
+		// .addCamera(new HttpCamera("limelight-c", "http://10.17.32.11:5800"));
 	}
 
 	/**

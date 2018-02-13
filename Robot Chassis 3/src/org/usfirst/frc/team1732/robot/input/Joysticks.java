@@ -42,6 +42,11 @@ public class Joysticks {
 				Robot.drivetrain.setBrakeMode(false);
 			}
 		});
+		new JoystickButton(controller, 10).whenPressed(new InstantCommand() {
+			protected void initialize() {
+				Robot.limelight.toggleCamMode();
+			}
+		});
 	}
 
 	public double getLeftY() {
