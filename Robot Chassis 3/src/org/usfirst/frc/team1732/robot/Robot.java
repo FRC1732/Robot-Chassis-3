@@ -7,12 +7,16 @@
 
 package org.usfirst.frc.team1732.robot;
 
+import org.usfirst.frc.team1732.robot.commands.AutonRotate;
 import org.usfirst.frc.team1732.robot.commands.DriveABitForElectrical;
 import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1732.robot.util.SRXMomentRecorder;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -30,6 +34,7 @@ public class Robot extends TimedRobot {
 
 	// Sensors
 	public static final Limelight limelight = new Limelight();
+	public static AHRS navx;
 
 	// Voltage recording (Should move)
 	public static final SRXMomentRecorder leftRecorder = new SRXMomentRecorder(drivetrain.getLeftTalon(),
@@ -47,9 +52,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		setPeriod(PERIOD_MS / 1000.0);
+		setPeriod(PERIOD_MS);
 		// CameraServer.getInstance()
 		// .addCamera(new HttpCamera("limelight-c", "http://10.17.32.11:5800"));
+		try {
+			navx = new AHRS(Port.kMXP);
+		}catch(Exception e) {
+			
+		}
 	}
 
 	/**
@@ -79,7 +89,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		new DriveABitForElectrical().start();
+//		new DriveABitForElectrical().start();
+		new AutonRotate().start();
 	}
 
 	/**

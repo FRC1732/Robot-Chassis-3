@@ -13,6 +13,7 @@ public class SRXMomentRecorder {
 	private TalonSRX talon;
 	private EncoderReader encoder;
 	private Stack<Moment> moments;
+	private Stack<EncoderTime> encoders;
 	private boolean recording = false;
 	private PIDController pid;
 	private Moment currentMoment = null;
@@ -36,7 +37,7 @@ public class SRXMomentRecorder {
 				try {
 					// no idea what this does, but it has to be there to make the wait work
 					synchronized (this) {
-						this.wait((long) Robot.PERIOD_MS);
+						Thread.sleep(Robot.PERIOD_MS);
 					}
 				} catch (InterruptedException e) {}
 			}
