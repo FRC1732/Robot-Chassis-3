@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team1732.robot;
 
-import org.usfirst.frc.team1732.robot.commands.AutonRotate;
-import org.usfirst.frc.team1732.robot.commands.DriveABitForElectrical;
+import org.usfirst.frc.team1732.robot.commands.ReverseDrivetrainMovements;
+import org.usfirst.frc.team1732.robot.commands.drive.TankDrive;
 import org.usfirst.frc.team1732.robot.input.Joysticks;
 import org.usfirst.frc.team1732.robot.sensors.Limelight;
 import org.usfirst.frc.team1732.robot.subsystems.Drivetrain;
@@ -38,9 +38,9 @@ public class Robot extends TimedRobot {
 
 	// Voltage recording (Should move)
 	public static final SRXMomentRecorder leftRecorder = new SRXMomentRecorder(drivetrain.getLeftTalon(),
-			drivetrain.leftEncoder.makeReader());
+			drivetrain.leftEncoder, 121);
 	public static final SRXMomentRecorder rightRecorder = new SRXMomentRecorder(drivetrain.getRightTalon(),
-			drivetrain.rightEncoder.makeReader());
+			drivetrain.rightEncoder, 116);
 
 	// config
 	public static final int PERIOD_MS = 10;
@@ -52,13 +52,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		setPeriod(PERIOD_MS);
+		setPeriod(PERIOD_MS / 1000.0);
 		// CameraServer.getInstance()
 		// .addCamera(new HttpCamera("limelight-c", "http://10.17.32.11:5800"));
 		try {
 			navx = new AHRS(Port.kMXP);
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -68,7 +68,10 @@ public class Robot extends TimedRobot {
 	 * robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {}
+	public void disabledInit() {
+		leftRecorder.stopRecording();
+		rightRecorder.stopRecording();
+	}
 
 	@Override
 	public void disabledPeriodic() {
@@ -89,8 +92,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-//		new DriveABitForElectrical().start();
-		new AutonRotate().start();
+		// new DriveABitForElectrical().start();
+		// new AutonRotate().start();
+		new ReverseDrivetrainMovements().start();
 	}
 
 	/**
@@ -102,7 +106,11 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {}
+	public void teleopInit() {
+		leftRecorder.startRecording();
+		rightRecorder.startRecording();
+		new TankDrive().start();
+	}
 
 	/**
 	 * This function is called periodically during operator control.
@@ -116,5 +124,6 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {}
+	public void testPeriodic() {
+	}
 }

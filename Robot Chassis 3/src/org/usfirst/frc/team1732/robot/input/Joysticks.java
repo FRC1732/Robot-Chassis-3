@@ -50,7 +50,7 @@ public class Joysticks {
 	}
 
 	public double getLeftY() {
-		return controller.getRawAxis(1);
+		return -controller.getRawAxis(1);
 	}
 	public double getLeftX() {
 		return controller.getRawAxis(0);

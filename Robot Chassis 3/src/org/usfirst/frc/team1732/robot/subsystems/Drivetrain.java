@@ -17,39 +17,34 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
-	private final TalonSRX leftMaster = new TalonSRX(14), left1 = new TalonSRX(11), left2 = new TalonSRX(13);
-	private final TalonSRX rightMaster = new TalonSRX(22), right1 = new TalonSRX(23), right2 = new TalonSRX(21);
+	private final TalonSRX leftMaster = new TalonSRX(5), left1 = new TalonSRX(6), left2 = new TalonSRX(7);
+	private final TalonSRX rightMaster = new TalonSRX(0), right1 = new TalonSRX(1), right2 = new TalonSRX(2);
 
 	public final Feedforward leftFeedforward = new Feedforward(0, 0, 0);
 	public final Feedforward rightFeedforward = new Feedforward(0, 0, 0);
 
-	public final EncoderBase leftEncoder;
-	public final EncoderBase rightEncoder;
-	public final EncoderReader leftReader;
-	public final EncoderReader rightReader;
+	public final Encoder leftEncoder;
+	public final Encoder rightEncoder;
 
 	public static final double ENCODER_INCHES_PER_PULSE = 45.0 / 3401;
 
 	public Drivetrain() {
 		initTalons();
 		initEncoders();
-		leftEncoder = new TalonEncoder(leftMaster);
+		leftEncoder = new Encoder(2, 3);
 		leftEncoder.setDistancePerPulse(ENCODER_INCHES_PER_PULSE);
-		rightEncoder = new TalonEncoder(rightMaster);
+		rightEncoder = new Encoder(0, 1);
 		rightEncoder.setDistancePerPulse(ENCODER_INCHES_PER_PULSE);
-		leftReader = leftEncoder.makeReader();
-		rightReader = rightEncoder.makeReader();
 	}
 
 	private void initTalons() {
-		leftMaster.setInverted(true);
 		left1.follow(leftMaster);
 		left2.follow(leftMaster);
-		rightMaster.setInverted(true);
 		right1.follow(rightMaster);
 		right2.follow(rightMaster);
 	}
@@ -60,10 +55,10 @@ public class Drivetrain extends Subsystem {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("Left Pulses", leftReader.getPulses());
-		SmartDashboard.putNumber("Right Pulses", rightReader.getPulses());
-		SmartDashboard.putNumber("Left Distance", leftReader.getPosition());
-		SmartDashboard.putNumber("Right Distance", rightReader.getPosition());
+//		SmartDashboard.putNumber("Left Pulses", leftReader.getPulses());
+//		SmartDashboard.putNumber("Right Pulses", rightReader.getPulses());
+//		SmartDashboard.putNumber("Left Distance", leftReader.getPosition());
+//		SmartDashboard.putNumber("Right Distance", rightReader.getPosition());
 	}
 
 	@Override
@@ -76,7 +71,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void setLeftMotorsRaw(double val) {
-		leftMaster.set(ControlMode.PercentOutput, -val);
+		leftMaster.set(ControlMode.PercentOutput, val);
 	}
 
 	public void setRightMotors(double val) {

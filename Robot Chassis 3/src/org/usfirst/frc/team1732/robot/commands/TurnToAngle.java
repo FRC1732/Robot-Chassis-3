@@ -14,6 +14,7 @@ public class TurnToAngle extends Command {
 	private double angle = 0;
 	private final double range = 4;
 	
+	@SuppressWarnings("unused")
 	private boolean master = true;
 	
 	public double getAngle() {
