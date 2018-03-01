@@ -60,7 +60,7 @@ public class DriveToCube extends Command {
 		rotation.disable();
 		translation.disable();
 		drivetrain.setAllStop();
-		System.out.println("DriveToCube done");
+		System.out.println("DriveToCube: Ended");
 	}
 
 	public static enum TurnDirection {
